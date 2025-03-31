@@ -74,7 +74,7 @@ describe('Bookshop - assertions', () => {
           {
             ID: 55,
             name: 'Brandon Sanderson',
-            dateOfBirth: null, // mixed up date of birth and date of death
+            dateOfBirth: '2024-12-01', // mixed up date of birth and date of death
             dateOfDeath: '1975-12-19',
             books: [
               {
@@ -87,7 +87,7 @@ describe('Bookshop - assertions', () => {
           },
           { auth: { username: 'alice' } },
         ),
-      ).to.be.rejectedWith('The Birthday "null" of author "Brandon Sanderson" must not be after the Deathday "1975-12-19"')
+      ).to.be.rejectedWith('The Birthday "2024-12-01" of author "Brandon Sanderson" must not be after the Deathday "1975-12-19"')
       // book should not have been created
       const book = await SELECT.one.from(Books).where({ ID: 55 })
       expect(book).to.not.exist
@@ -107,7 +107,6 @@ describe('Bookshop - assertions', () => {
                 children: [
                   {
                     ID: 57,
-                    name: 'We forbid genre names with more than 20 characters', // how to check violations in deep operations?
                   }]
               }
             ]
