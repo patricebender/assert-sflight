@@ -9,6 +9,11 @@ using {
 
 namespace sap.fe.cap.travel;
 
+@assert.constraint.dates : {
+  condition: ( days_between(BeginDate, EndDate) >= 0 ),
+  message: 'BEGIN_DATE_AFTER_END_DATE',
+  parameters: [BeginDate, EndDate]
+}
 entity Travel : managed {
   key TravelUUID : UUID;
   TravelID       : Integer @readonly default 0;

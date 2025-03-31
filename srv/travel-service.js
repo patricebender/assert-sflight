@@ -1,4 +1,5 @@
 const cds = require ('@sap/cds');
+const {attachConstraints, checkConstraints} = require('../lib/assert/assert-constraint')
 
 class TravelService extends cds.ApplicationService {
 init() {
@@ -7,6 +8,10 @@ init() {
    * Reflect definitions from the service's CDS model
    */
   const { Travel, Booking, BookingSupplement } = this.entities
+
+  // @assert.constraint handler
+  this.after(['INSERT', 'UPSERT', 'UPDATE'], attachConstraints)
+  cds.db.before('COMMIT', checkConstraints)
 
 
   /**
@@ -160,8 +165,8 @@ init() {
       }
     }
 
-    if (BeginDate < today) req.error (400, `Begin Date ${BeginDate} must not be before today ${today}.`, 'in/BeginDate')
-    if (BeginDate > EndDate) req.error (400, `Begin Date ${BeginDate} must be before End Date ${EndDate}.`, 'in/BeginDate')
+    // if (BeginDate < today) req.error (400, `Begin Date ${BeginDate} must not be before today ${today}.`, 'in/BeginDate')
+    // if (BeginDate > EndDate) req.error (400, `Begin Date ${BeginDate} must be before End Date ${EndDate}.`, 'in/BeginDate')
   })
 
 
