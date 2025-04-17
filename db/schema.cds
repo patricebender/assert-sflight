@@ -10,7 +10,7 @@ using {
 namespace sap.fe.cap.travel;
 
 @assert.constraint.dates : {
-  condition: ( days_between(BeginDate, EndDate) >= 0 ),
+  condition: ( days_between($self.BeginDate, EndDate) >= 0 ),
   message: 'BEGIN_DATE_AFTER_END_DATE',
   parameters: [BeginDate, EndDate]
 }
