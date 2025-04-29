@@ -1,5 +1,5 @@
 const cds = require ('@sap/cds');
-const {attachConstraints, checkConstraints} = require('../lib/assert/assert-constraint')
+const {attachConstraints, checkConstraints} = require('../lib/assert-constraint')
 
 class TravelService extends cds.ApplicationService {
 init() {

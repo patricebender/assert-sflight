@@ -15,6 +15,8 @@ service TravelService @(path:'/processor') {
     action deductDiscount( percent: Percentage not null ) returns Travel;
   };
 
+  entity Booking as projection on my.Booking;
+
 }
 
 type Percentage : Integer @assert.range: [1,100];
