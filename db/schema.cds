@@ -12,7 +12,7 @@ namespace sap.fe.cap.travel;
 @assert.constraint.ToBookingFlightDate : {
   condition: ( BeginDate <= to_Booking.FlightDate and to_Booking.FlightDate <= EndDate ),
   message: 'FLIGHT_DATE_IN_RANGE',
-  parameters: [(to_Booking.FlightDate), (BeginDate),(EndDate)],
+  parameters: [(to_Booking.BookingID), (BeginDate),(EndDate)],
   targets: [(to_Booking.FlightDate)], // does not yet have an effect
 }
 @assert.constraint.StartBeforeEnd : {
