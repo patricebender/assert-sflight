@@ -26,6 +26,11 @@ entity Travel : managed {
   TravelID       : Integer @readonly default 0;
   BeginDate      : Date;
   EndDate        : Date;
+  @assert.constraint : {
+    condition: ( BookingFee < 50 ),
+    message: 'The BookingFee must be less than 50$',
+    // implicit target is `BookingFee`
+  }
   BookingFee     : Decimal(16, 3);
   TotalPrice     : Decimal(16, 3) @readonly;
   CurrencyCode   : Currency;
