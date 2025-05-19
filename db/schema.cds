@@ -19,6 +19,7 @@ namespace sap.fe.cap.travel;
   condition: ( BeginDate <= EndDate ),
   message: 'BEGIN_DATE_AFTER_END_DATE',
   parameters: {EndDate: (EndDate), BeginDate: (BeginDate)},
+  targets: [(BeginDate), (EndDate)],
 }
 entity Travel : managed {
   key TravelUUID : UUID;
