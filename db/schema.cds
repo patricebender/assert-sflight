@@ -9,31 +9,11 @@ using {
 
 namespace sap.fe.cap.travel;
 
-@assert.constraint.ToBookingFlightDate : {
-  condition: ( BeginDate <= to_Booking.FlightDate and to_Booking.FlightDate <= EndDate ),
-  message: 'FLIGHT_DATE_IN_RANGE',
-  // message: 'The booking date ({1}) must be in the range of the travel dates',
-  //> with line 15, we should be able to leave out parameters (if named params are part of payload)
-  parameters: [(to_Booking.BookingID), (BeginDate),(EndDate)],
-  targets: [(to_Booking.FlightDate)],
-}
-@assert.constraint.StartBeforeEnd : {
-  condition: ( BeginDate <= EndDate ),
-  message: 'BEGIN_DATE_AFTER_END_DATE',
-  parameters: {EndDate: (EndDate), BeginDate: (BeginDate)},
-  targets: [(BeginDate), (EndDate)],
-}
 entity Travel : managed {
   key TravelUUID : UUID;
   TravelID       : Integer @readonly default 0;
   BeginDate      : Date;
   EndDate        : Date;
-  @assert.constraint : { //> only execute constraint if targets are touched?
-    condition: ( BookingFee < TotalPrice ),
-    message: 'The BookingFee must be less than 50$',
-    targets: [(BookingFee), (TotalPrice)],
-    // implicit target is `BookingFee`
-  }
   BookingFee     : Decimal(16, 3);
   TotalPrice     : Decimal(16, 3) @readonly;
   CurrencyCode   : Currency;
