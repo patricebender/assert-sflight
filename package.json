@@ -17,13 +17,13 @@
         "travel-analytics": "cds watch --open travel_analytics/webapp/index.html?sap-ui-xx-viewCache=false"
     },
     "dependencies": {
-        "@cap-js/hana": "^1",
+        "@cap-js/hana": "^2",
         "@sap/cds": ">=8.0.0",
         "@sap/xssec": "^4",
         "express": "^4"
     },
     "devDependencies": {
-        "@cap-js/sqlite": "^1.0.1",
+        "@cap-js/sqlite": "^2",
         "@sap/ux-specification": "^1.124.9",
         "axios": "^1",
         "chai": "^4.3.0",

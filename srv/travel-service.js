@@ -11,7 +11,7 @@ init() {
 
   // @assert.constraint handler
   this.after(['INSERT', 'UPSERT', 'UPDATE'], attachConstraints)
-  cds.db.before('COMMIT', checkConstraints)
+  this.after(['INSERT', 'UPSERT', 'UPDATE'], checkConstraints)
 
 
   /**
