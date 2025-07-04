@@ -14,7 +14,10 @@ entity Travel : managed {
   TravelID       : Integer @readonly default 0;
   BeginDate      : Date;
   EndDate        : Date;
-  @assert.constraint: (BookingFee is not null and BookingFee >= 0)
+  @assert.constraint: {
+    condition: (BookingFee is not null and BookingFee >= 0),
+    message: 'Enter a booking fee (>= 0)',
+  }
   BookingFee     : Decimal(16, 3);
   TotalPrice     : Decimal(16, 3) @readonly;
   CurrencyCode   : Currency;

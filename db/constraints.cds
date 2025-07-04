@@ -1,37 +1,30 @@
 using {sap.fe.cap.travel as my} from './schema';
 
-annotate my.Travel : BeginDate with @(
-    assert.constraint.beginDateMustBeInFuture: {
-        condition : (BeginDate > $now),
-        message   : 'error.travel.date.past',
-        parameters: [
-            (TravelID),
-            (Date($now))
-        ]
-    },
-    assert.constraint.beginBeforeEndDate     : {
-        condition : (BeginDate <= EndDate),
-        message   : 'error.travel.date.before',
-        parameters: [
-            (TravelID),
-            (EndDate),
-            (BeginDate)
-        ]
+annotate my.Travel with @assert.constraint.beginAfterToday: {
+    condition : (BeginDate > $now),
+    parameters: [
+        (BeginDate),
+        (Date($now))
+    ],
+    message   : 'error.travel.date.past',
+    targets   : [(BeginDate)]
+};
+
+annotate my.Travel : EndDate with @assert.constraint.beginBeforeEndDate: {
+    condition : (BeginDate <= EndDate),
+    message   : 'error.travel.date.before',
+    parameters: {
+        BeginDate: (BeginDate),
+        EndDate: (EndDate),
     }
-);
+};
 
-
-// annotate my.Booking : FlightDate with @assert.constraint.flightDate: {
-//     condition : (FlightDate between to_Travel.BeginDate and to_Travel.EndDate),
-//     message   : 'FLIGHT_DATE_IN_RANGE',
-//     parameters: [
-//         (BookingID),
-//         (to_Travel.BeginDate),
-//         (to_Travel.EndDate)
-//     ]
-// };
-
-// annotate my.Booking : to_Flight with @assert.constraint.freeseats: {
-//     condition: (to_Flight.OccupiedSeats < to_Flight.MaximumSeats),
-//     message  : 'no free seats on selected flight'
-// };
+annotate my.Booking : FlightDate with @assert.constraint.flightDate: {
+    condition: (FlightDate between to_Travel.BeginDate and to_Travel.EndDate),
+    message: 'error.flight.date.range',
+    parameters: [
+        (to_Travel.BeginDate),
+        (to_Travel.EndDate),
+        (to_Travel.TravelID)
+    ]
+} ;
