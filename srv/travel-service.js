@@ -142,7 +142,6 @@ init() {
 
     // validate only not rejected travels
     if (TravelStatus_code !== 'X') {
-      if (BookingFee == null) req.error(400, "Enter a booking fee", "in/BookingFee") // 0 is a valid BookingFee
       if (!BeginDate) req.error(400, "Enter a begin date", "in/BeginDate")
       if (!EndDate) req.error(400, "Enter an end date", "in/EndDate")
       if (!to_Agency_AgencyID) req.error(400, "Enter a travel agency", "in/to_Agency_AgencyID")
@@ -165,8 +164,10 @@ init() {
       }
     }
 
-    // if (BeginDate < today) req.error (400, `Begin Date ${BeginDate} must not be before today ${today}.`, 'in/BeginDate')
-    // if (BeginDate > EndDate) req.error (400, `Begin Date ${BeginDate} must be before End Date ${EndDate}.`, 'in/BeginDate')
+    // 👇 some application layer validations
+    if (BookingFee == null) req.error(400, "Enter a booking fee", "in/BookingFee") // 0 is a valid BookingFee
+    if (BeginDate < today) req.error (400, `Begin Date ${BeginDate} must not be before today ${today}.`, 'in/BeginDate')
+    if (BeginDate > EndDate) req.error (400, `Begin Date ${BeginDate} must be before End Date ${EndDate}.`, 'in/BeginDate')
   })
 
 

@@ -1,24 +1,24 @@
-// using {sap.fe.cap.travel as my} from './schema';
+using {sap.fe.cap.travel as my} from './schema';
 
-// annotate my.Travel : BeginDate with @(
-//     assert.constraint.beginDateMustBeInFuture: {
-//         condition : (BeginDate > $now),
-//         message   : 'error.travel.date.past',
-//         parameters: [
-//             (TravelID),
-//             (Date($now))
-//         ]
-//     },
-//     assert.constraint.beginBeforeEndDate     : {
-//         condition : (BeginDate <= EndDate),
-//         message   : 'error.travel.date.before',
-//         parameters: [
-//             (TravelID),
-//             (EndDate),
-//             (BeginDate)
-//         ]
-//     }
-// );
+annotate my.Travel : BeginDate with @(
+    assert.constraint.beginDateMustBeInFuture: {
+        condition : (BeginDate > $now),
+        message   : 'error.travel.date.past',
+        parameters: [
+            (TravelID),
+            (Date($now))
+        ]
+    },
+    assert.constraint.beginBeforeEndDate     : {
+        condition : (BeginDate <= EndDate),
+        message   : 'error.travel.date.before',
+        parameters: [
+            (TravelID),
+            (EndDate),
+            (BeginDate)
+        ]
+    }
+);
 
 
 // annotate my.Booking : FlightDate with @assert.constraint.flightDate: {
