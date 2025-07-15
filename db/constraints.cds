@@ -10,13 +10,14 @@ annotate my.Travel with @assert.constraint.beginAfterToday: {
     targets   : [(BeginDate)]
 };
 
-annotate my.Travel : EndDate with @assert.constraint.beginBeforeEndDate: {
+annotate my.Travel with @assert.constraint.beginBeforeEndDate: {
     condition : (BeginDate <= EndDate),
     message   : 'error.travel.date.before',
     parameters: {
         BeginDate: (BeginDate),
         EndDate: (EndDate),
-    }
+    },
+    targets: [(BeginDate), (EndDate)]
 };
 
 annotate my.Booking : FlightDate with @assert.constraint.flightDate: {
